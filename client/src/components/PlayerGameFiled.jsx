@@ -11,6 +11,7 @@ import JapaneseMafia from "./JapaneseMafia";
 import ItalianMafiaCard from "./ItalianMafiaCard";
 import { socket } from "./../utils/socket";
 import { useNavigate } from 'react-router-dom';
+import ImmortalCard from "./ImmortalCard";
 
 const PlayerGameFiled = () => {
   const { user, isLoaded } = useUser();
@@ -45,7 +46,7 @@ const PlayerGameFiled = () => {
       case "detective":
         return <DetectiveCard />;
       case "immortal":
-        return <ImmortalCard />;
+        return <ImmortalCard />; 
 
       default:
         return <p className="text-center text-red-500">Unknown role</p>;
