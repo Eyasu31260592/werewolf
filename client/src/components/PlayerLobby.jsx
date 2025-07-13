@@ -102,7 +102,7 @@ const PlayerLobby = () => {
   return (
     <>
     {
-      !info.role ?  
+      !info?.role ?  
       <div className="space-y-6 max-w-2xl mx-auto w-full px-4"> 
       {games.length === 0 ? (
         <motion.p
