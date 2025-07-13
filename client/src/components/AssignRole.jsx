@@ -87,15 +87,7 @@ const AssignRole = () => {
   }
 
     // console.log(updatedPlayerList);
-    const updateButtonVisibility = (killerSum, availableCount) => {
-  if (killerSum === 0) {
-    setShowButon(false);
-  } else if (killerSum >= availableCount) {
-    setShowButon(false);
-  } else {
-    setShowButon(true);
-  }
-};
+   
 
     try {
       const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/assign-role`,{
@@ -107,6 +99,16 @@ const AssignRole = () => {
       error(err.message)
     }
   };
+
+   const updateButtonVisibility = (killerSum, availableCount) => {
+  if (killerSum === 0) {
+    setShowButon(false);
+  } else if (killerSum >= availableCount) {
+    setShowButon(false);
+  } else {
+    setShowButon(true);
+  }
+};
 
   useEffect(() => {
     let sum =
