@@ -94,7 +94,7 @@ const PlayerGameFiled = () => {
       socket.on("JapaneseMafia", () => {
         if (!info.dead) {
           const id1 = info._id;
-          const id2 = info.mateInfo.id;
+          const id2 = info.mateInfo?.id;
           getplayerToKill(id1, id2);
           setShowCard(true);
         }
@@ -118,7 +118,7 @@ const PlayerGameFiled = () => {
       socket.on("serialKiller", () => {
         if (!info.dead) {
           const id1 = info._id;
-          const id2 = info.mateInfo.id;
+          const id2 = info.mateInfo?.id;
           getplayerToKill(id1, id2);
           setShowCard(true);
         }
@@ -130,7 +130,7 @@ const PlayerGameFiled = () => {
       socket.on("italianMafia", () => {
         if (!info.dead) {
           const id1 = info._id;
-          const id2 = info.mateInfo.id;
+          const id2 = info.mateInfo?.id;
           getplayerToKill(id1, id2);
           setShowCard(true);
         }
