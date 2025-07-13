@@ -86,7 +86,16 @@ const AssignRole = () => {
     index++;
   }
 
-    console.log(updatedPlayerList);
+    // console.log(updatedPlayerList);
+    const updateButtonVisibility = (killerSum, availableCount) => {
+  if (killerSum === 0) {
+    setShowButon(false);
+  } else if (killerSum >= availableCount) {
+    setShowButon(false);
+  } else {
+    setShowButon(true);
+  }
+};
 
     try {
       const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/assign-role`,{
@@ -106,16 +115,8 @@ const AssignRole = () => {
       roles.japaneseMafia +
       roles.italianMafia;
     setTotalKiller(sum);
-    if (sum >= avalablePlayerList - 1) {
-      setShowButon(false);
-    }
-    if (sum < avalablePlayerList - 1) {
-      setShowButon(true);
-    }
-    if (sum === 0) {
-      setShowButon(false);
-    }
-  }, [roles]);
+   updateButtonVisibility(sum, avalablePlayerList);
+  }, [roles,avalablePlayerList]);
 
   useEffect(() => {
     const getNumOfUser = async () => {
@@ -126,9 +127,8 @@ const AssignRole = () => {
 
         setPlayerList(data);
         setavalablePlayerList(data.length - 3);
-        if (totalKiller >= 1) {
-          setShowButon(true);
-        }
+        setavalablePlayerList(available);
+      updateButtonVisibility(totalKiller, available);
       } catch (error) {
         console.log(error.message);
       }
