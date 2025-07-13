@@ -81,6 +81,9 @@ io.on('connection', (socket) => {
     })
 });
 
+app.get('/',(req,res)=>{
+    res.json({message:"hi"})
+})
 app.post('/api/start-game',startInvite)
 app.get('/api/get-game-list', getGameList)
 app.get('/api/game-start-by-me-db/:id', gameStartByMeDb)
