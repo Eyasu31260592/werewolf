@@ -185,95 +185,62 @@ const HostGameFiled = () => {
        <div className="p-6 bg-gray-900 rounded-xl shadow-md">
   <h2 className="text-2xl text-center font-bold text-white mb-6">Werewolf Game - Player Status</h2>
 
- <div className="p-4"> {/* Added some padding to the container */}
-  {/* Table for medium and larger screens (hidden on small) */}
-  <div className="overflow-x-auto hidden md:block">
-    <table className="min-w-full border-collapse rounded-lg overflow-hidden text-white">
-      <thead className="bg-gray-800 text-sm uppercase tracking-wider">
-        <tr>
-          <th className="px-4 py-3 text-left">Name</th>
-          <th className="px-4 py-3 text-left">Role</th>
-          <th className="px-4 py-3 text-left">Status</th>
-          <th className="px-4 py-3 text-left">Actions</th>
+  <div className="w-full overflow-x-auto">
+  <table className="min-w-max w-full border-collapse rounded-lg overflow-hidden text-white text-sm">
+    <thead className="bg-gray-800 uppercase tracking-wider">
+      <tr>
+        <th className="px-4 py-3 text-left whitespace-nowrap">Name</th>
+        <th className="px-4 py-3 text-left whitespace-nowrap">Role</th>
+        <th className="px-4 py-3 text-left whitespace-nowrap">Status</th>
+        <th className="px-4 py-3 text-left whitespace-nowrap">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {playerList.map((player) => (
+        <tr
+          key={player._id}
+          className={`transition duration-300 ease-in-out ${
+            player.dead ? 'bg-red-900/80' : 'bg-green-900/80'
+          }`}
+        >
+          <td className="px-4 py-3 font-semibold whitespace-nowrap">
+            {player.name.split(" ")[0]}
+          </td>
+          <td className="px-4 py-3 capitalize whitespace-nowrap">{player.role}</td>
+          <td className="px-4 py-3 font-bold whitespace-nowrap">
+            <span className={player.dead ? 'text-red-300' : 'text-green-300'}>
+              {player.dead ? 'Dead 💀' : 'Alive 🧍'}
+            </span>
+          </td>
+          <td className="px-4 py-3 whitespace-nowrap">
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  handleKill(player._id);
+                  socket.emit('refresh');
+                }}
+                disabled={player.dead}
+                className="px-3 py-1 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white"
+              >
+                Kill
+              </button>
+              <button
+                onClick={() => {
+                  handleSave(player._id);
+                  socket.emit('refresh');
+                }}
+                disabled={!player.dead}
+                className="px-3 py-1 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white"
+              >
+                Save
+              </button>
+            </div>
+          </td>
         </tr>
-      </thead>
-
-      <tbody>
-        {playerList.map((player) => (
-          <tr
-            key={player._id}
-            className={`transition duration-300 ease-in-out ${
-              player.dead ? 'bg-red-900/80' : 'bg-green-900/80'
-            }`}
-          >
-            <td className="px-4 py-3 font-semibold">{player.name.split(" ")[0]}</td>
-            <td className="px-4 py-3 capitalize">{player.role}</td>
-            <td className="px-4 py-3 font-bold">
-              <span className={player.dead ? 'text-red-300' : 'text-green-300'}>
-                {player.dead ? 'Dead 💀' : 'Alive 🧍'}
-              </span>
-            </td>
-            <td className="px-4 py-3">
-              <div className="flex gap-2">
-                <button
-                  onClick={() => { handleKill(player._id); socket.emit('refresh') }}
-                  disabled={player.dead}
-                  className="px-3 py-1 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white"
-                >
-                  Kill
-                </button>
-                <button
-                  onClick={() => { handleSave(player._id); socket.emit('refresh') }}
-                  disabled={!player.dead}
-                  className="px-3 py-1 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white"
-                >
-                  Save
-                </button>
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  {/* Card view for small screens (hidden on medium and larger) */}
-  <div className="md:hidden">
-    {playerList.map((player) => (
-      <div
-        key={player._id}
-        className={`mb-4 p-4 rounded-lg shadow-md ${
-          player.dead ? 'bg-red-900/80' : 'bg-green-900/80'
-        }`}
-      >
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold text-white">{player.name.split(" ")[0]}</h3>
-          <span className={`font-bold ${player.dead ? 'text-red-300' : 'text-green-300'}`}>
-            {player.dead ? 'Dead 💀' : 'Alive 🧍'}
-          </span>
-        </div>
-        <div className="text-white text-sm mb-3">
-          <span className="font-medium">Role:</span> <span className="capitalize">{player.role}</span>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => { handleKill(player._id); socket.emit('refresh') }}
-            disabled={player.dead}
-            className="px-3 py-1 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white"
-          >
-            Kill
-          </button>
-          <button
-            onClick={() => { handleSave(player._id); socket.emit('refresh') }}
-            disabled={!player.dead}
-            className="px-3 py-1 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white"
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    ))}
-  </div>
+      ))}
+    </tbody>
+  </table>
 </div>
 
 </div>
