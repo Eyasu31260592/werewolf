@@ -21,7 +21,7 @@ export default function HostStartButton() {
   const start_invite = async () => {
 
     try {
-      const response = await axios.post('http://localhost:5000/api/start-game',{
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/start-game`,{
         id:id,
         host : host,
       })
@@ -39,7 +39,7 @@ export default function HostStartButton() {
   useEffect(()=>{
     const checkGameStart = async () => {
       try {
-      const response = await axios.get(`http://localhost:5000/api/game-start-by-me-db/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/game-start-by-me-db/${id}`);
   
         setIsLoading(false);
       setGameStartByMe(response.data.started)

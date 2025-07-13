@@ -28,12 +28,12 @@ const PlayerOnLobbyList = () => {
     try {
 
       if (role !== 'host'){
-            const res = await axios.get(`http://localhost:5000/api/get-game-id/${id}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/get-game-id/${id}`);
             const currentGameId = res.data.gameId;
-             const {data} = await axios.get(`http://localhost:5000/api/player-list-for-player/${currentGameId}`)
+             const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/player-list-for-player/${currentGameId}`)
             setPlayerListForPlayer(data)
       }else{
-      const res2 = await axios.get(`http://localhost:5000/api/player-list-for-host/${id}`)
+      const res2 = await axios.get(`${import.meta.env.VITE_API_URL}/api/player-list-for-host/${id}`)
       setPlayerListForHost(res2.data)
       
       }
@@ -47,7 +47,7 @@ const PlayerOnLobbyList = () => {
   const deleteGame = async() => {
 
     try {
-      const {data} = await axios.delete(`http://localhost:5000/api/delete-game/${id}`);
+      const {data} = await axios.delete(`${import.meta.env.VITE_API_URL}/api/delete-game/${id}`);
       success(data.message)
       socket.emit('game-cancled');
       navigate('/')

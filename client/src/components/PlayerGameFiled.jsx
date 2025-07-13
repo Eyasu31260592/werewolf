@@ -55,7 +55,7 @@ const PlayerGameFiled = () => {
   const getplayerToKill = async (...ids) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/get-player-to-kill/${ids.join(",")}`
+        `${import.meta.env.VITE_API_URL}/api/get-player-to-kill/${ids.join(",")}`
       );
       console.log(data);
       setplayerToKill(data);
@@ -78,7 +78,7 @@ const PlayerGameFiled = () => {
     const getSelfInfo = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/self-info/${id}`
+          `${import.meta.env.VITE_API_URL}/api/self-info/${id}`
         );
         setInfo(data);
       } catch (error) {

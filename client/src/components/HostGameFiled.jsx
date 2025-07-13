@@ -23,7 +23,7 @@ const HostGameFiled = () => {
 
       const handleKill  = async(id)=> {
           try {
-          const {data} = await axios.post(`http://localhost:5000/api/kill-player/${id}`);
+          const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/kill-player/${id}`);
           console.log(data)
           getPlayers();
         } catch (error) {
@@ -35,7 +35,7 @@ const HostGameFiled = () => {
   
       const handleSave  = async(id)=> {
         try {
-          const {data} = await axios.post(`http://localhost:5000/api/save-player/${id}`);
+          const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/save-player/${id}`);
           console.log(data)
           getPlayers();
         } catch (error) {
@@ -68,7 +68,7 @@ const HostGameFiled = () => {
 
        const getPlayers = async () => {
             try {
-            const {data} =  await axios.get(`http://localhost:5000/api/player-list-for-host/${id}`)
+            const {data} =  await axios.get(`${import.meta.env.VITE_API_URL}/api/player-list-for-host/${id}`)
             setPlayerList(data)
             
           } catch (error) {

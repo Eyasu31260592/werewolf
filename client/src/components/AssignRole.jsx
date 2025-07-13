@@ -89,7 +89,7 @@ const AssignRole = () => {
     console.log(updatedPlayerList);
 
     try {
-      const {data} = await axios.post('http://localhost:5000/api/assign-role',{
+      const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/assign-role`,{
         updatedPlayerInfo: updatedPlayerList
       })
       socket.emit('game_Started');
@@ -121,7 +121,7 @@ const AssignRole = () => {
     const getNumOfUser = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/player-list-for-player/${id}`
+          `${import.meta.env.VITE_API_URL}/api/player-list-for-player/${id}`
         );
 
         setPlayerList(data);

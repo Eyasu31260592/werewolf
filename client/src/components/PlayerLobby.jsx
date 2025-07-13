@@ -28,7 +28,7 @@ const PlayerLobby = () => {
         setCurrentGameId(currentGameId)
 
         try {
-          const {data} = await axios.post('http://localhost:5000/api/create-player', {
+          const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/create-player`, {
             _id,
             profilePic,
             gameId,
@@ -45,7 +45,7 @@ const PlayerLobby = () => {
       const playerInTheGame = async () => {
         const id = user?.id;
 
-        const {data} = await axios.get(`http://localhost:5000/api/player-in-the-game/${id}`)
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/player-in-the-game/${id}`)
         if(data.inTheGame){
           setPlayerIsInTheGame(true)
         }
@@ -61,7 +61,7 @@ const PlayerLobby = () => {
 
       const fetchGames = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/get-game-list');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/get-game-list`);
         // const res = await axios.get('http://192.168.8.2:5000/api/get-game-list');
         setGames(res.data);
       } catch (error) {
@@ -89,7 +89,7 @@ const PlayerLobby = () => {
         const getSelfInfo = async() => {
            const id = user?.id;
             try {
-                const {data} = await axios.get(`http://localhost:5000/api/self-info/${id}`);
+                const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/self-info/${id}`);
                 setInfo(data)
             } catch (error) {
                 console.log(error.message)
