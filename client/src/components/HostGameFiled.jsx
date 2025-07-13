@@ -185,14 +185,15 @@ const HostGameFiled = () => {
        <div className="p-6 bg-gray-900 rounded-xl shadow-md">
   <h2 className="text-2xl text-center font-bold text-white mb-6">Werewolf Game - Player Status</h2>
 
-  <div className="w-full overflow-x-auto">
-  <table className="min-w-max w-full border-collapse rounded-lg overflow-hidden text-white text-sm">
+  {/* ✅ Desktop Table (visible on md and above) */}
+<div className="hidden md:block w-full overflow-x-auto">
+  <table className="min-w-full border-collapse rounded-lg overflow-hidden text-white text-sm">
     <thead className="bg-gray-800 uppercase tracking-wider">
       <tr>
-        <th className="px-4 py-3 text-left whitespace-nowrap">Name</th>
-        <th className="px-4 py-3 text-left whitespace-nowrap">Role</th>
-        <th className="px-4 py-3 text-left whitespace-nowrap">Status</th>
-        <th className="px-4 py-3 text-left whitespace-nowrap">Actions</th>
+        <th className="px-4 py-3 text-left">Name</th>
+        <th className="px-4 py-3 text-left">Role</th>
+        <th className="px-4 py-3 text-left">Status</th>
+        <th className="px-4 py-3 text-left">Actions</th>
       </tr>
     </thead>
 
@@ -207,29 +208,23 @@ const HostGameFiled = () => {
           <td className="px-4 py-3 font-semibold whitespace-nowrap">
             {player.name.split(" ")[0]}
           </td>
-          <td className="px-4 py-3 capitalize whitespace-nowrap">{player.role}</td>
-          <td className="px-4 py-3 font-bold whitespace-nowrap">
+          <td className="px-4 py-3 capitalize">{player.role}</td>
+          <td className="px-4 py-3 font-bold">
             <span className={player.dead ? 'text-red-300' : 'text-green-300'}>
               {player.dead ? 'Dead 💀' : 'Alive 🧍'}
             </span>
           </td>
-          <td className="px-4 py-3 whitespace-nowrap">
+          <td className="px-4 py-3">
             <div className="flex gap-2">
               <button
-                onClick={() => {
-                  handleKill(player._id);
-                  socket.emit('refresh');
-                }}
+                onClick={() => { handleKill(player._id); socket.emit('refresh'); }}
                 disabled={player.dead}
                 className="px-3 py-1 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white"
               >
                 Kill
               </button>
               <button
-                onClick={() => {
-                  handleSave(player._id);
-                  socket.emit('refresh');
-                }}
+                onClick={() => { handleSave(player._id); socket.emit('refresh'); }}
                 disabled={!player.dead}
                 className="px-3 py-1 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white"
               >
@@ -242,6 +237,44 @@ const HostGameFiled = () => {
     </tbody>
   </table>
 </div>
+
+{/* ✅ Mobile Card View (visible on small screens only) */}
+<div className="block md:hidden space-y-4">
+  {playerList.map((player) => (
+    <div
+      key={player._id}
+      className={`rounded-lg p-4 shadow-lg ${
+        player.dead ? 'bg-red-900/80' : 'bg-green-900/80'
+      }`}
+    >
+      <h3 className="text-xl font-bold text-white mb-2">{player.name.split(" ")[0]}</h3>
+      <p className="text-white capitalize"><strong>Role:</strong> {player.role}</p>
+      <p className="text-white">
+        <strong>Status:</strong>{" "}
+        <span className={player.dead ? 'text-red-300' : 'text-green-300'}>
+          {player.dead ? 'Dead 💀' : 'Alive 🧍'}
+        </span>
+      </p>
+      <div className="mt-3 flex gap-2">
+        <button
+          onClick={() => { handleKill(player._id); socket.emit('refresh'); }}
+          disabled={player.dead}
+          className="px-3 py-1 rounded-md text-sm font-medium bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white"
+        >
+          Kill
+        </button>
+        <button
+          onClick={() => { handleSave(player._id); socket.emit('refresh'); }}
+          disabled={!player.dead}
+          className="px-3 py-1 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
 
 </div>
 
