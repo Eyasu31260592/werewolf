@@ -99,7 +99,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("Japanese-Mafia");
+      // return () => socket.off("Japanese-Mafia");
     }
 
     if (info?.role === "werewolf") {
@@ -111,7 +111,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("werewolf");
+      // return () => socket.off("werewolf");
     }
 
     if (info?.role === "serialKiller") {
@@ -123,7 +123,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("serialKiller");
+      // return () => socket.off("serialKiller");
     }
 
     if (info?.role === "italianMafia") {
@@ -135,7 +135,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("italianMafia");
+      // return () => socket.off("italianMafia");
     }
 
     if (info?.role === "doctor") {
@@ -149,7 +149,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("doctor");
+      // return () => socket.off("doctor");
     }
 
     if (info?.role === "detective") {
@@ -160,7 +160,7 @@ const PlayerGameFiled = () => {
           setShowCard(true);
         }
       });
-      return () => socket.off("detective");
+      // return () => socket.off("detective");
     }
 
     socket.on('refresh',()=> {
